@@ -20,22 +20,25 @@ class Re_path:
             for dir in dirs:
                 file_paths = os.path.join(roots, dir)
                 file_list = glob.glob(file_paths + '/*.jpg')
-                frame = len(file_list)
-                info = {"project name":None,
-                        "seq name":None,
-                        'shot name':None,
-                        'version':None,
-                        'frame':None,
-                        'path':None} 
-                mat_path = re.search(self.project_path + '/(\w+)/shot/(\w+)/(\w+)/plate/(\w+)',file_paths)
-                if mat_path:
-                    info["project name"] = mat_path.group(1)
-                    info["seq name"] = mat_path.group(2)
-                    info["shot name"] = mat_path.group(3)
-                    info["version"] = mat_path.group(4)
-                    info["frame"] = frame
-                    info["path"] = file_paths
-                    self.my_list.append(info)
+                if file_list:
+                    frame = len(file_list)
+                    info = {"project name":None,
+                            "seq name":None,
+                            'shot name':None,
+                            'version':None,
+                            'frame':None,
+                            'path':None} 
+                    mat_path = re.search(self.project_path + '/(\w+)/shot/(\w+)/(\w+)/plate/(\w+)',file_paths)
+                    if mat_path:
+                        info["project name"] = mat_path.group(1)
+                        info["seq name"] = mat_path.group(2)
+                        info["shot name"] = mat_path.group(3)
+                        info["version"] = mat_path.group(4)
+                        info["frame"] = frame
+                        info["path"] = file_paths
+                        self.my_list.append(info)
+                else:
+                    print('path is None')
 
 def main():
     t = Re_path()
